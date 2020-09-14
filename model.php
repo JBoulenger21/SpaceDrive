@@ -1,17 +1,15 @@
 <?php
-class connexionBDD {
-  private $_instance = null;
-  private $ConnexionBaseDeDonnees = '';
-  private function connexion($ConnexionBaseDeDonnees){
-    $this->$ConnexionBaseDeDonnees;
-  }
-  public static function getConnexion($ConnexionBaseDeDonnees){
-    if(isnull(self::$_instance)){
-      self::$_instance = new connexionBDD($ConnexionBaseDeDonnees);
-    }
-    return self::$_instance;
-  }
-}
+// class connexionBDD {
+//   private $_instance = null;
+//   private static $ConnexionBaseDeDonnees = '';
+//
+//   public static function getConnexion($ConnexionBaseDeDonnees){
+//     if(isnull(self::$_instance)){
+//       self::$_instance = new connexionBDD($ConnexionBaseDeDonnees);
+//     }
+//     return self::$_instance;
+//   }
+// }
 
 
 $servername = "localhost";
@@ -48,7 +46,9 @@ function newTableService(){
   $request = $dB->prepare($query);
   $request->execute();
   $request->closeCursor();
+  return True;
 }
+
 function newTableNosServices(){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
@@ -70,9 +70,10 @@ function newTableNosServices(){
   $request = $dB->prepare($query);
   $request->execute();
   $request->closeCursor();
-
+  return True;
 }
-function newTable(){
+
+function newTableUser(){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
   $username = "root";
@@ -85,8 +86,112 @@ function newTable(){
   } catch(PDOException $e) {
     die('erreur :'.$e->getMessage());
   }
-  newTableService();
-  newTableNosServices();
-  return true;
+  $query = "CREATE TABLE IF NOT EXISTS `Users` (
+    `id_Users` INT UNSIGNED NOT NULL AUTO_INCREMENT , `Nom` VARCHAR(255) NOT NULL ,
+    `Prenom` VARCHAR(255) , `mail` VARCHAR(255) NOT NULL, PRIMARY KEY (`id_USers`)) ENGINE = MyISAM;
+  )";
+
+  $request = $dB->prepare($query);
+  $request->execute();
+  $request->closeCursor();
+  return True;
 }
+
+function newTableCategorie(){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+  $query = "CREATE TABLE IF NOT EXISTS `Categorie` (
+    `id_Categorie` INT UNSIGNED NOT NULL AUTO_INCREMENT , `Nom` VARCHAR(255) NOT NULL ,
+    `Description` VARCHAR(255) , PRIMARY KEY (`id_Categorie`)) ENGINE = MyISAM;
+  )";
+
+  $request = $dB->prepare($query);
+  $request->execute();
+  $request->closeCursor();
+  return True;
+}
+
+function newTableProjet(){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+  $query = "CREATE TABLE IF NOT EXISTS `Projet` (
+    `id_Projet` INT UNSIGNED NOT NULL AUTO_INCREMENT , `Nom` VARCHAR(255) NOT NULL ,
+    `Description` VARCHAR(255) , PRIMARY KEY (`id_Projet`)) ENGINE = MyISAM;
+  )";
+
+  $request = $dB->prepare($query);
+  $request->execute();
+  $request->closeCursor();
+  return True;
+}
+
+function InsertUser($nom, $email){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+  $query = "INSERT INTO `users`(`Nom`, `mail`) VALUES (:nom, :email)";
+  $arrayValue = [
+    ':nom'=>$nom,
+    ':email'=>$email
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+
+  return True;
+}
+
+function check($input){
+  trim($input);
+  stripslashes($input);
+  htmlspecialchars($input);
+  return $input;
+}
+
+// function newTable(){
+//   $servername = "localhost";
+//   $dbname = "spacedrivebdd";
+//   $username = "root";
+//   $password = "";
+//
+//   try{
+//     $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+//
+//     $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//   } catch(PDOException $e) {
+//     die('erreur :'.$e->getMessage());
+//   }
+//   newTableService();
+//   newTableNosServices();
+//   return true;
+// }
 ?>
