@@ -37,14 +37,29 @@ if(isset($_POST['newTableProjet'])){
   }
 }
 
-if(isset($_POST['newUserName']) && isset($_POST['newUserMail'])){
+if(isset($_POST['emailconn']) && isset($_POST['passwordconn'])){
+  $email = $_POST['emailconn'];
+  $password = $_POST['passwordconn'];
+  $result = connectUser($email, $password);
+  if($result == 1){
+    echo 'connexion ok';
+    header('location:backoffice.php');
+  }else{
+    echo 'connexion pas ok';
+    header('location:connexion.php');
+  }
+}
+
+if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST['newUserPsw']) && isset($_POST['newUserPswVer'])){
   $nom = $_POST['newUserName'];
   $email = $_POST['newUserMail'];
+  $password = $_POST['newUserPsw'];
+  $passwordVerif = $_POST['newUserPswVer'];
   $email = check($email);
   $nom = check($nom);
   $checkEmail = checkEmail($email);
   if ($checkEmail == 1) {
-    if(InsertUser($nom, $email) == True){
+    if(InsertUser($nom, $email, $password) == True){
       echo "Bravo, nom et email renseignés et inserés avec succès";
     }else{
     echo "Pas réussi à entrer dans la base le username et usermail";

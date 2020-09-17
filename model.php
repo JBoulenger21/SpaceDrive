@@ -11,7 +11,6 @@
 //   }
 // }
 
-
 $servername = "localhost";
 $dbname = "spacedrivebdd";
 $username = "root";
@@ -88,7 +87,7 @@ function newTableUser(){
   }
   $query = "CREATE TABLE IF NOT EXISTS `Users` (
     `id_Users` INT UNSIGNED NOT NULL AUTO_INCREMENT , `Nom` VARCHAR(255) NOT NULL ,
-    `Prenom` VARCHAR(255) , `mail` VARCHAR(255) NOT NULL, PRIMARY KEY (`id_USers`)) ENGINE = MyISAM;
+    `Prenom` VARCHAR(255) , `mail` VARCHAR(255) NOT NULL, `password` VARCHAR(255) , `role` VARCHAR(255), PRIMARY KEY (`id_USers`)) ENGINE = MyISAM;
   )";
 
   $request = $dB->prepare($query);
@@ -145,7 +144,7 @@ function newTableProjet(){
   return True;
 }
 
-function InsertUser($nom, $email){
+function InsertUser($nom, $email, $password){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
   $username = "root";
@@ -158,17 +157,83 @@ function InsertUser($nom, $email){
   } catch(PDOException $e) {
     die('erreur :'.$e->getMessage());
   }
-  $query = "INSERT INTO `users`(`Nom`, `mail`) VALUES (:nom, :email)";
-  $arrayValue = [
-    ':nom'=>$nom,
-    ':email'=>$email
-  ];
+  $query = "SELECT `mail` FROM `users`";
   $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  $request->execute();
 
+  $result = emailExist($email);
+
+    if($result != 0){
+      return 'Votre email est déjà existant, veuillez vous connecter.';
+      $request->closeCursor();
+    }else{
+    $query = "INSERT INTO `users`(`Nom`, `mail`, `password`) VALUES (:nom, :email, :password)";
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $arrayValue = [
+      ':nom'=>$nom,
+      ':email'=>$email,
+      ':password'=>$password
+    ];
+    $request = $dB->prepare($query);
+    $request->execute($arrayValue);
+    $request->closeCursor();
+  }
   return True;
 }
+
+function emailExist($email){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+  $query = "SELECT `mail` FROM `users` WHERE `mail`=:mail";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':mail'=>$email
+    ];
+  $request->execute($arrayValue);
+  $nb_presence = count($request->fetchAll());
+  $request->closeCursor();
+  return $nb_presence;
+}
+
+function connectUser($email, $password){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+
+  $query = "SELECT `password` FROM `users` WHERE `mail`=:mail";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':mail'=>$email
+    ];
+    if($request->execute($arrayValue)){
+      $donnees = $request->fetch();
+      if(password_verify($password,$donnees['password'])){
+        return 1;
+      }else{
+        return 2;
+      }
+      $request->closeCursor();
+    }
+  }
 
 function check($input){
   trim($input);
@@ -194,4 +259,5 @@ function check($input){
 //   newTableNosServices();
 //   return true;
 // }
+
 ?>
