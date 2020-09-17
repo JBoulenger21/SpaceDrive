@@ -18,6 +18,7 @@ if(isset($_POST['newTableNosService'])){
 if(isset($_POST['newTableUser'])){
   if(newTableUser()){
     echo "c'est ok Users";
+    header ('location:connexion.php');
   }else{
     echo "c'est pas ok Users";
   }
@@ -43,10 +44,13 @@ if(isset($_POST['emailconn']) && isset($_POST['passwordconn'])){
   $result = connectUser($email, $password);
   if($result == 1){
     echo 'connexion ok';
-    header('location:backoffice.php');
+    var_dump($result);
+    // header('location:backoffice.php');
+
   }else{
     echo 'connexion pas ok';
-    header('location:connexion.php');
+    var_dump($result);
+    // header('location:connexion.php');
   }
 }
 
@@ -68,6 +72,7 @@ if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST[
     echo "Veuillez insérer un email valide.";
   }
 }
+
 
 function checkEmail($email){
   if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email)<50) {

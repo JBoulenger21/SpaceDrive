@@ -144,7 +144,7 @@ function newTableProjet(){
   return True;
 }
 
-function InsertUser($nom, $email, $password){
+function InsertUser($nom, $email, $passworduser){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
   $username = "root";
@@ -168,11 +168,11 @@ function InsertUser($nom, $email, $password){
       $request->closeCursor();
     }else{
     $query = "INSERT INTO `users`(`Nom`, `mail`, `password`) VALUES (:nom, :email, :password)";
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $passworduser = password_hash($passworduser, PASSWORD_DEFAULT);
     $arrayValue = [
       ':nom'=>$nom,
       ':email'=>$email,
-      ':password'=>$password
+      ':password'=>$passworduser
     ];
     $request = $dB->prepare($query);
     $request->execute($arrayValue);
@@ -205,7 +205,7 @@ function emailExist($email){
   return $nb_presence;
 }
 
-function connectUser($email, $password){
+function connectUser($email, $passworduser){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
   $username = "root";
@@ -226,14 +226,15 @@ function connectUser($email, $password){
     ];
     if($request->execute($arrayValue)){
       $donnees = $request->fetch();
-      if(password_verify($password,$donnees['password'])){
+      if(password_verify($passworduser, $donnees['password'])){
         return 1;
       }else{
         return 2;
       }
       $request->closeCursor();
     }
-  }
+ }
+
 
 function check($input){
   trim($input);
