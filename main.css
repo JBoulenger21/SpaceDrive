@@ -1,0 +1,12 @@
+.BackForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 50%;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+.backbuttonform{
+  margin-top: 1em;
+  background-color: grey;
+}

@@ -8,8 +8,8 @@ if(isset($_POST['newTableService'])){
     echo "c'est pas ok Service";
   }
 }
-if(isset($_POST['newTableNosService'])){
-  if(newTableNosService()){
+if(isset($_POST['newTableNosServices'])){
+  if(newTableNosServices()){
     echo "c'est ok Nos Services";
   }else{
     echo "c'est pas ok Nos Services";
@@ -26,6 +26,7 @@ if(isset($_POST['newTableUser'])){
 if(isset($_POST['newTableCategorie'])){
   if(newTableCategorie()){
     echo "c'est ok Categorie";
+    header('location:backoffice.php');
   }else{
     echo "c'est pas ok Categorie";
   }
@@ -33,6 +34,7 @@ if(isset($_POST['newTableCategorie'])){
 if(isset($_POST['newTableProjet'])){
   if(newTableProjet()){
     echo "c'est ok Projet";
+    header('location:backoffice.php');
   }else{
     echo "c'est pas ok Projet";
   }
@@ -45,12 +47,12 @@ if(isset($_POST['emailconn']) && isset($_POST['passwordconn'])){
   if($result == 1){
     echo 'connexion ok';
     var_dump($result);
-    // header('location:backoffice.php');
+    header('location:backoffice.php');
 
   }else{
     echo 'connexion pas ok';
     var_dump($result);
-    // header('location:connexion.php');
+    header('location:connexion.php');
   }
 }
 
@@ -65,6 +67,7 @@ if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST[
   if ($checkEmail == 1) {
     if(InsertUser($nom, $email, $password) == True){
       echo "Bravo, nom et email renseignés et inserés avec succès";
+      header('location:connexion.php');
     }else{
     echo "Pas réussi à entrer dans la base le username et usermail";
     }
@@ -73,6 +76,24 @@ if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST[
   }
 }
 
+if(isset($_POST['newTitreS']) && isset($_POST['newPresaS']) && isset($_POST['newPlan'])){
+  $titre = $_POST['newTitreS'];
+  $presentation = $_POST['newPresaS'];
+  $plan = $_POST['newPlan'];
+  $titre = check($titre);
+  $presentation = check($presentation);
+  newTitreService($titre, $presentation, $plan);
+  header('location:backoffice.php');
+}
+
+if(isset($_POST['newTitreNS']) && isset($_POST['newPresaNS'])){
+  $titre = $_POST['newTitreNS'];
+  $presentation = $_POST['newPresaNS'];
+  $titre = check($titre);
+  $presentation = check($presentation);
+  newContentNosServices($titre, $presentation);
+  header('location:backoffice.php');
+}
 
 function checkEmail($email){
   if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email)<50) {
