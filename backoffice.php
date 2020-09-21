@@ -1,44 +1,57 @@
 <?php include('header.php'); ?>
 
+<div class="container">
+  <button type="button" class="btn btn-dark m-3" id="btnformnewservice">Nouveau "Service"</button><br>
+  <button type="button" class="btn btn-dark m-3" id="btnformnewnosservices">Nouveau "Nos Services"</button><br>
+  <button type="button" class="btn btn-dark m-3" id="btnformnewcategorie">Nouvelle "Catégorie"</button><br>
+  <button type="button" class="btn btn-dark m-3" id="btnformnewprojet">Nouveau "Projet"</button>
+  <br>
+</div>
+
 <div class="container m-3">
-  <form class="BackForm" action="traitement.php" method="post">
-    <label>Nouveau titre</label>
-    <input type="text" name="newTitreS" id="newTitreS" required>
-    <label>Nouvelle description</label>
-    <input type="text" name="newPresaS" id="newPresaS" required>
-    <label>Compris dans le plan :</label>
-    <select class="form-select" name="newPlan" id="newPlan">
-      <option selected>Choisissez votre plan</option>
-      <option value="1">Basic</option>
-      <option value="2">Advanced</option>
-      <option value="3">Profesional</option>
-    </select>
-    <button class="backbuttonform" type="submit" name="newTableService">Nouveau Service</button>
-  </form>
-  <br>
-
-  <form class="BackForm" action="traitement.php" method="post">
-    <label>Nouveau titre</label>
-    <input type="text" name="newTitreNS" id="newTitreNS" required>
-    <label>Nouvelle présentation</label>
-    <input type="text" name="newPresaNS" id="newPresaNS" required>
-    <button class="backbuttonform" type="submit" name="newTableNosServices">Nouveau Nos Services</button>
-  </form>
-  <br>
-
-  <form class="BackForm" action="traitement.php" method="post">
-    <label>Nouveau nom</label>
-    <input type="text" name="newNomCategorie" id="newNomCategorie">
-    <label>Nouvelle description</label>
-    <input type="text" name="newDescCategorie" id="newDescCategorie">
-    <button class="backbuttonform" type="submit" name="newTableCategorie">Nouvelle Catégorie</button>
-  </form>
-  <br>
-
-  <form class="BackForm" action="traitement.php" method="post">
-    <input type="text" name="newProjet" id="newProjet">
-    <button class="backbuttonform" type="submit" name="newTableProjet">Nouveau projet</button>
-  </form>
+  <div class="FormNewService" id="FormNewService">
+    <form class="BackForm" action="traitement.php" method="post">
+      <label>Nouveau titre</label>
+      <input type="text" name="newTitreS" id="newTitreS" required>
+      <label>Nouvelle description</label>
+      <input type="text" name="newPresaS" id="newPresaS" required>
+      <label>Compris dans le plan :</label>
+      <select class="form-select" name="newPlan" id="newPlan">
+        <option selected>Choisissez votre plan</option>
+        <option value="1">Basic</option>
+        <option value="2">Advanced</option>
+        <option value="3">Profesional</option>
+      </select>
+      <button class="backbuttonform" type="submit" name="newTableService">Nouveau Service</button>
+    </form>
+    <br>
+  </div>
+  <div class="FormNewNosServices" id="FormNewNosServices">
+    <form class="BackForm" action="traitement.php" method="post">
+      <label>Nouveau titre</label>
+      <input type="text" name="newTitreNS" id="newTitreNS" required>
+      <label>Nouvelle présentation</label>
+      <input type="text" name="newPresaNS" id="newPresaNS" required>
+      <button class="backbuttonform" type="submit" name="newTableNosServices">Nouveau Nos Services</button>
+    </form>
+    <br>
+  </div>
+  <div class="FormNewCategorie" id="FormNewCategorie">
+    <form class="BackForm" action="traitement.php" method="post">
+      <label>Nouveau nom</label>
+      <input type="text" name="newNomCategorie" id="newNomCategorie" required>
+      <label>Nouvelle description</label>
+      <input type="text" name="newDescCategorie" id="newDescCategorie" required>
+      <button class="backbuttonform" type="submit" name="newTableCategorie">Nouvelle Catégorie</button>
+    </form>
+    <br>
+  </div>
+  <div class="FormNewProjet" id="FormNewProjet">
+    <form class="BackForm" action="traitement.php" method="post">
+      <input type="text" name="newProjet" id="newProjet">
+      <button class="backbuttonform" type="submit" name="newTableProjet">Nouveau projet</button>
+    </form>
+  </div>
 </div>
 
 <?php include('footer.php'); ?>
