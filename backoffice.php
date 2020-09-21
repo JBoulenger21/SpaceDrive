@@ -27,10 +27,14 @@
   <br>
 
   <form class="BackForm" action="traitement.php" method="post">
-    <input type="text" name="newCategorie" id="newCategorie">
+    <label>Nouveau nom</label>
+    <input type="text" name="newNomCategorie" id="newNomCategorie">
+    <label>Nouvelle description</label>
+    <input type="text" name="newDescCategorie" id="newDescCategorie">
     <button class="backbuttonform" type="submit" name="newTableCategorie">Nouvelle Catégorie</button>
   </form>
   <br>
+
   <form class="BackForm" action="traitement.php" method="post">
     <input type="text" name="newProjet" id="newProjet">
     <button class="backbuttonform" type="submit" name="newTableProjet">Nouveau projet</button>

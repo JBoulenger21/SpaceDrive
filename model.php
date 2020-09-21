@@ -24,6 +24,31 @@ try{
   die('erreur :'.$e->getMessage());
 }
 
+function newContentCategorie($nom, $Description){
+  $servername = "localhost";
+  $dbname = "spacedrivebdd";
+  $username = "root";
+  $password = "";
+
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die('erreur :'.$e->getMessage());
+  }
+
+  $query = "INSERT INTO `categorie`(`Nom`, `Description`) VALUES (:nom,:Description)";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':nom'=>$nom,
+    ':Description'=>$Description
+    ];
+    $request = $dB->prepare($query);
+    $request->execute($arrayValue);
+    $request->closeCursor();
+}
+
 function InsertUser($nom, $email, $passworduser){
   $servername = "localhost";
   $dbname = "spacedrivebdd";

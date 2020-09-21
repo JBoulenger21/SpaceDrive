@@ -26,7 +26,6 @@ if(isset($_POST['newTableUser'])){
 if(isset($_POST['newTableCategorie'])){
   if(newTableCategorie()){
     echo "c'est ok Categorie";
-    header('location:backoffice.php');
   }else{
     echo "c'est pas ok Categorie";
   }
@@ -92,6 +91,15 @@ if(isset($_POST['newTitreNS']) && isset($_POST['newPresaNS'])){
   $titre = check($titre);
   $presentation = check($presentation);
   newContentNosServices($titre, $presentation);
+  header('location:backoffice.php');
+}
+
+if(isset($_POST['newNomCategorie']) && isset($_POST['newDescCategorie'])){
+  $titre = $_POST['newNomCategorie'];
+  $Description = $_POST['newDescCategorie'];
+  $titre = check($titre);
+  $Description = check($Description);
+  newContentCategorie($titre, $Description);
   header('location:backoffice.php');
 }
 
