@@ -27,11 +27,13 @@
     <br>
   </div>
   <div class="FormNewNosServices" id="FormNewNosServices">
-    <form class="BackForm" action="traitement.php" method="post">
+    <form class="BackForm" action="traitement.php" method="post" enctype="multipart/form-data">
       <label>Nouveau titre</label>
       <input type="text" name="newTitreNS" id="newTitreNS" required>
       <label>Nouvelle présentation</label>
       <input type="text" name="newPresaNS" id="newPresaNS" required>
+      <label>Nouvelle icone</label>
+      <input type="file" name="newIconeNS">
       <button class="backbuttonform" type="submit" name="newTableNosServices">Nouveau Nos Services</button>
     </form>
     <br>

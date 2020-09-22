@@ -85,12 +85,15 @@ if(isset($_POST['newTitreS']) && isset($_POST['newPresaS']) && isset($_POST['new
   header('location:backoffice.php');
 }
 
-if(isset($_POST['newTitreNS']) && isset($_POST['newPresaNS'])){
+if(isset($_POST['newTitreNS']) && isset($_POST['newPresaNS']) && isset($_FILES['newIconeNS'])){
   $titre = $_POST['newTitreNS'];
   $presentation = $_POST['newPresaNS'];
+  $image = $_FILES['newIconeNS']['name'];
+  $dir = "image/.$image";
+  move_uploaded_file($_FILES['newIconeNS']['tmp_name'],$dir);
   $titre = check($titre);
   $presentation = check($presentation);
-  newContentNosServices($titre, $presentation);
+  newContentNosServices($titre, $presentation, $image);
   header('location:backoffice.php');
 }
 

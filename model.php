@@ -173,7 +173,7 @@ function newTitreService($titre, $description, $plan){
     $request->closeCursor();
 }
 
-function newContentNosServices($titre, $presentation){
+function newContentNosServices($titre, $presentation, $image){
   $servername = "localhost";
   $dbname = "spacedrivebdd";
   $username = "root";
@@ -187,11 +187,12 @@ function newContentNosServices($titre, $presentation){
     die('erreur :'.$e->getMessage());
   }
 
-  $query = "INSERT INTO `nosservices`(`titre`, `Presentation`) VALUES (:titre,:presentation)";
+  $query = "INSERT INTO `nosservices`(`titre`, `Presentation`, `icone`) VALUES (:titre,:presentation,:image)";
   $request = $dB->prepare($query);
   $arrayValue = [
     ':titre'=>$titre,
-    ':presentation'=>$presentation
+    ':presentation'=>$presentation,
+    ':image'=>$image
     ];
     $request = $dB->prepare($query);
     $request->execute($arrayValue);
@@ -237,7 +238,7 @@ function newTableNosServices(){
   }
   $query = "CREATE TABLE IF NOT EXISTS `NosServices` (
     `id_Nosservices` INT UNSIGNED NOT NULL AUTO_INCREMENT , `titre` VARCHAR(255) NOT NULL ,
-    `Presentation` VARCHAR(255) , `id_Service` INT, PRIMARY KEY (`id_Nosservices`)) ENGINE = MyISAM;
+    `Presentation` VARCHAR(255) , `id_Service` INT, `icone` VARCHAR(255) , PRIMARY KEY (`id_Nosservices`)) ENGINE = MyISAM;
   )";
 
   $request = $dB->prepare($query);
