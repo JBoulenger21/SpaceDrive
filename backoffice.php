@@ -6,6 +6,8 @@
   <button type="button" class="btn btn-dark m-3" id="btnformnewcategorie">Nouvelle "Catégorie"</button><br>
   <button type="button" class="btn btn-dark m-3" id="btnformnewprojet">Nouveau "Projet"</button>
   <br>
+  <button type="button" class="btn btn-dark m-3" name="ShowAllNS" id="btnformviewnosservices">Voir les "Nos services"</button>
+  <br>
 </div>
 
 <div class="container m-3">
@@ -54,6 +56,25 @@
       <button class="backbuttonform" type="submit" name="newTableProjet">Nouveau projet</button>
     </form>
   </div>
+</div>
+
+<div class="container" id="showNosServices">
+  <form class="" action="traitement.php" method="post">
+    <?php if(isset($_POST['ShowAllNS'])){
+      $donnees = ShowAllNosServices();
+    while($donnees = $NosServices->fetch()){ ?>
+    <div class="card countriescards bg-light" style="width: 18rem;">
+      <img src="images/<?php echo $donnees['icone'];?>" class="card-img-top" alt="<?php echo $donnees['image'];?>">
+       <div class="card-body">
+         <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
+         <p class="card-text"><?php echo $donnees['Presentation'];?></p>
+       </div>
+       <button type="submit" class="btn btn-primary" name="delete" value="<?= $donnees['id_Nosservices'] ?>">Supprimer</button>
+
+    </div>
+  <?php }
+      } ?>
+  </form>
 </div>
 
 <?php include('footer.php'); ?>
