@@ -7,14 +7,14 @@ var btnformnewnosservices = document.getElementById('btnformnewnosservices');
 var btnformnewcategorie = document.getElementById('btnformnewcategorie');
 var btnformnewprojet = document.getElementById('btnformnewprojet');
 
-if(typeof addEventListener('click', OpenFormNewService) !== 'undefined'){
+if(btnformnewservice){
 btnformnewservice.addEventListener('click', OpenFormNewService);
 btnformnewnosservices.addEventListener('click', OpenFormNewNosService);
 btnformnewcategorie.addEventListener('click', OpenFormNewCategorie);
 btnformnewprojet.addEventListener('click', OpenFormNewProjet);
 }
 
-if(typeof addEventListener('input', verifPassword) !=='undefined'){
+if(newUser){
 newUserPswVer.addEventListener('input', verifPassword);
 }
 
