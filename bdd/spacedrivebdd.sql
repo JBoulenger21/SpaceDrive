@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 22 sep. 2020 à 07:27
+-- Généré le :  mer. 23 sep. 2020 à 06:47
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `nosservices` (
   `titre` varchar(255) NOT NULL,
   `Presentation` varchar(255) DEFAULT NULL,
   `id_Service` int(11) DEFAULT NULL,
+  `icone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_Nosservices`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -62,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `nosservices` (
 -- Déchargement des données de la table `nosservices`
 --
 
-INSERT INTO `nosservices` (`id_Nosservices`, `titre`, `Presentation`, `id_Service`) VALUES
-(1, 'Titre 1', 'Presa 1', NULL);
+INSERT INTO `nosservices` (`id_Nosservices`, `titre`, `Presentation`, `id_Service`, `icone`) VALUES
+(1, 'azerty', 'azertyuiop', NULL, '1024px-HTML5_logo_and_wordmark.svg.png');
 
 -- --------------------------------------------------------
 
