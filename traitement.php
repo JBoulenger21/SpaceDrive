@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('model.php');
 
 if(isset($_POST['newTableService'])){
@@ -89,7 +90,7 @@ if(isset($_POST['newTitreNS']) && isset($_POST['newPresaNS']) && isset($_FILES['
   $titre = $_POST['newTitreNS'];
   $presentation = $_POST['newPresaNS'];
   $image = $_FILES['newIconeNS']['name'];
-  $dir = "image/.$image";
+  $dir = "image/$image";
   move_uploaded_file($_FILES['newIconeNS']['tmp_name'],$dir);
   $titre = check($titre);
   $presentation = check($presentation);
@@ -114,5 +115,10 @@ function checkEmail($email){
   }
 }
 
+if(isset($_POST['ShowAllNS'])){
+  $donneesNS = ShowAllNosServices();
+  $_SESSION['ShowAllNS'] = $donneesNS;
+  header('location:backoffice.php');
+}
 
  ?>

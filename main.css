@@ -10,6 +10,18 @@
   margin-top: 1em;
   background-color: grey;
 }
-#FormNewService, #FormNewNosServices, #FormNewCategorie, #FormNewProjet, #showNosServices {
+#FormNewService, #FormNewNosServices, #FormNewCategorie, #FormNewProjet {
   display: none;
+}
+.itemsFormNS{
+  display: flex;
+  flex-wrap: wrap;
+}
+.boutonFormNS{
+  display: flex;
+}
+.boutonFormNS button{
+  width: 50%;
+  background-color: grey;
+  border: none;
 }

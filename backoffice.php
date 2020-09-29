@@ -1,13 +1,15 @@
 <?php include('header.php'); ?>
 
 <div class="container">
-  <button type="button" class="btn btn-dark m-3" id="btnformnewservice">Nouveau "Service"</button><br>
-  <button type="button" class="btn btn-dark m-3" id="btnformnewnosservices">Nouveau "Nos Services"</button><br>
-  <button type="button" class="btn btn-dark m-3" id="btnformnewcategorie">Nouvelle "Catégorie"</button><br>
-  <button type="button" class="btn btn-dark m-3" id="btnformnewprojet">Nouveau "Projet"</button>
-  <br>
-  <button type="button" class="btn btn-dark m-3" name="ShowAllNS" id="btnformviewnosservices">Voir les "Nos services"</button>
-  <br>
+  <form action="traitement.php" method="post">
+    <button type="button" class="btn btn-dark m-3" id="btnformnewservice">Nouveau "Service"</button><br>
+    <button type="button" class="btn btn-dark m-3" id="btnformnewnosservices">Nouveau "Nos Services"</button><br>
+    <button type="button" class="btn btn-dark m-3" id="btnformnewcategorie">Nouvelle "Catégorie"</button><br>
+    <button type="button" class="btn btn-dark m-3" id="btnformnewprojet">Nouveau "Projet"</button>
+    <br>
+    <button type="submit" class="btn btn-dark m-3" name="ShowAllNS" id="btnformviewnosservices">Voir les "Nos services"</button>
+    <br>
+  </form>
 </div>
 
 <div class="container m-3">
@@ -59,22 +61,28 @@
 </div>
 
 <div class="container" id="showNosServices">
-  <form class="" action="traitement.php" method="post">
-    <?php if(isset($_POST['ShowAllNS'])){
-      $donnees = ShowAllNosServices();
-    while($donnees = $NosServices->fetch()){ ?>
-    <div class="card countriescards bg-light" style="width: 18rem;">
-      <img src="images/<?php echo $donnees['icone'];?>" class="card-img-top" alt="<?php echo $donnees['image'];?>">
-       <div class="card-body">
-         <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
-         <p class="card-text"><?php echo $donnees['Presentation'];?></p>
-       </div>
-       <button type="submit" class="btn btn-primary" name="delete" value="<?= $donnees['id_Nosservices'] ?>">Supprimer</button>
+    <div class="row row-cols-12">
+      <form class="itemsFormNS" action="traitement.php" method="post">
+      <?php if(isset($_SESSION['ShowAllNS'])){
+      $donnees = $_SESSION['ShowAllNS'];
+      $_SESSION['ShowAllNS'] = NULL;
+      foreach($donnees as $key=>$NS){ ?>
+        <div class="card bg-light m-3" style="width: 18rem;">
+            <img src="image/<?php echo $NS['icone'];?>" class="card-img-top">
+          <div class="card-body">
+             <h5 class="card-text"><?php echo $NS['titre'];?></h5>
+             <p class="card-text"><?php echo $NS['Presentation'];?></p>
+          </div>
+          <div class="boutonFormNS">
+           <button type="submit" class="btn btn-primary" name="updateNS" value="<?= $NS['id_Nosservices'] ?>">Editer</button>
+           <button type="submit" class="btn btn-primary" name="deleteNS" value="<?= $NS['id_Nosservices'] ?>">Supprimer</button>
+          </div>
+        </div>
 
-    </div>
-  <?php }
-      } ?>
-  </form>
+            <?php }
+            } ?>
+        </form>
+      </div>
 </div>
 
 <?php include('footer.php'); ?>

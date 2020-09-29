@@ -26,11 +26,19 @@ function verifPassword(){
   }
 }
 
+function displayBlock(e){
+  e.style.display = "block";
+}
+function displayNone(e){
+  e.style.display = "none";
+}
+
 function OpenFormNewService(){
   document.getElementById('FormNewService').style.display = "block";
   document.getElementById('FormNewNosServices').style.display = "none";
   document.getElementById('FormNewCategorie').style.display = "none";
   document.getElementById('FormNewProjet').style.display = "none";
+  document.getElementById('showNosServices').style.display = "none";
 };
 function OpenShowNosServices(){
   document.getElementById('FormNewService').style.display = "none";
@@ -45,6 +53,7 @@ function OpenFormNewNosService(){
   document.getElementById('FormNewNosServices').style.display = "block";
   document.getElementById('FormNewCategorie').style.display = "none";
   document.getElementById('FormNewProjet').style.display = "none";
+  document.getElementById('showNosServices').style.display = "none";
 };
 
 function OpenFormNewCategorie(){
@@ -52,6 +61,7 @@ function OpenFormNewCategorie(){
   document.getElementById('FormNewNosServices').style.display = "none";
   document.getElementById('FormNewCategorie').style.display = "block";
   document.getElementById('FormNewProjet').style.display = "none";
+  document.getElementById('showNosServices').style.display = "none";
 };
 
 function OpenFormNewProjet(){
@@ -59,6 +69,7 @@ function OpenFormNewProjet(){
   document.getElementById('FormNewNosServices').style.display = "none";
   document.getElementById('FormNewCategorie').style.display = "none";
   document.getElementById('FormNewProjet').style.display = "block";
+  document.getElementById('showNosServices').style.display = "none";
 };
 
 

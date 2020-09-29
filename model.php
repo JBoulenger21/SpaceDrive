@@ -333,8 +333,11 @@ function ShowAllNosServices(){
     die('erreur :'.$e->getMessage());
   }
 
-  $query = "SELECT * FROM `nosservices`";
-  $NosServices = $dB->query($query);
+  $query = "SELECT * FROM `nosservices` ORDER BY id_NosServices";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $NosServices = $request->fetchAll();
+  $request->closeCursor();
   return $NosServices;
 }
 
