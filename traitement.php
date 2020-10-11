@@ -64,7 +64,8 @@ if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST[
   $email = check($email);
   $nom = check($nom);
   $checkEmail = checkEmail($email);
-  if ($checkEmail == 1) {
+  $checkPassword = checkPassword($password, $passwordVerif);
+  if ($checkEmail == 1 && $checkPassword == 1) {
     if(InsertUser($nom, $email, $password) == True){
       echo "Bravo, nom et email renseignés et inserés avec succès";
       header('location:connexion.php');
@@ -105,6 +106,16 @@ if(isset($_POST['newNomCategorie']) && isset($_POST['newDescCategorie'])){
   $Description = check($Description);
   newContentCategorie($titre, $Description);
   header('location:backoffice.php');
+}
+
+function checkPassword($password, $passwordVerif){
+  echo $password;
+  echo $passwordVerif;
+  if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
+    return 1;
+  }else{
+    return 'Mot de passe non valide';
+  }
 }
 
 function checkEmail($email){
