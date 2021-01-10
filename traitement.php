@@ -19,7 +19,7 @@ if(isset($_POST['newTableNosServices'])){
 if(isset($_POST['newTableUser'])){
   if(newTableUser()){
     echo "c'est ok Users";
-    header ('location:connexion.php');
+    // header ('location:connexion.php');
   }else{
     echo "c'est pas ok Users";
   }
@@ -68,12 +68,16 @@ if(isset($_POST['newUserName']) && isset($_POST['newUserMail']) && isset($_POST[
   if ($checkEmail == 1 && $checkPassword == 1) {
     if(InsertUser($nom, $email, $password) == True){
       echo "Bravo, nom et email renseignés et inserés avec succès";
-      header('location:connexion.php');
+      // header('location:connexion.php');
     }else{
     echo "Pas réussi à entrer dans la base le username et usermail";
     }
-  }else{
+  }else if ($checkEmail != 1 && $checkPassword == 1){
     echo "Veuillez insérer un email valide.";
+  } else if ($checkEmail == 1 && $checkPassword != 1){
+    echo "Veuillez insérer un mot de passe valide.";
+  } else {
+    echo "Email et Mot de passe invalides.";
   }
 }
 
@@ -109,13 +113,13 @@ if(isset($_POST['newNomCategorie']) && isset($_POST['newDescCategorie'])){
 }
 
 function checkPassword($password, $passwordVerif){
-  echo $password;
-  echo $passwordVerif;
-  if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
+  // echo $password;
+  // echo $passwordVerif;
+  // if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
     return 1;
-  }else{
-    return 'Mot de passe non valide';
-  }
+  // }else{
+  //   return 'Mot de passe non valide';
+  // }
 }
 
 function checkEmail($email){
